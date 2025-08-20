@@ -1,0 +1,25 @@
+<!-- index.html -->
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <title>AB Redirect</title>
+  <meta name="robots" content="noindex" />
+  <script>
+    (function () {
+      var pages = ["lead1.html", "lead2.html"];
+      var KEY = "ab_index";
+      var idx = Number(localStorage.getItem(KEY));
+
+      if (!Number.isInteger(idx)) idx = 0;              // primeira visita -> lead1
+      var next = idx % pages.length;                    // 0 ou 1
+      localStorage.setItem(KEY, (idx + 1) % pages.length);
+
+      var qs = window.location.search;                  // mantém ?utm=...
+      window.location.replace(pages[next] + (qs ? qs : ""));
+    })();
+  </script>
+  <noscript>Ative o JavaScript para continuar.</noscript>
+</head>
+<body></body>
+</html>
